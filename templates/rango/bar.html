@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Index{% endblock %}
+{% block nav_block %}
+<li><a href="/rango/category/{{ bar.slug }}/add_page/">Nueva Tapa</a></li>
+{% endblock %}
+{% block body_block %}
+
+    <div class="page-header">
+        {% if bar %}
+        <h1>{{ bar_nombre }} </h1>
+            <h2>{{bar.direccion}}</h2>
+            </div>
+            {% if tapas %}
+            <ul>
+                <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Tapas: </h3>
+                {% for tapa in tapas %}
+                 <li class="list-group-item"><a href="{{ tapa.url }}">{{ tapa.nombre }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <strong>Sin Tapas </strong>
+            {% endif %}
+        <p>Numero de visitas: {{bar.visitas}} </p>
+        {% else %}
+            La categoria {{ bar_nombre }} no existe!
+        {% endif %}
+        </div>
+        </div>
+{% endblock %}
+
+        
+
+        <a href="/rango/about/">About</a>
+    </body>
+</html>

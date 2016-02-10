@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C/DTD HTML 4.01//EN" "http://w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>
+			Grafica De Visitas
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+		<script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+		<script src="http://code.highcharts.com/modules/exporting.js" type="text/javascript"></script>
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
+<div id="container" style="height: 300px">
+<script>
+                       $(function () {  
+                       $.ajax({
+                      url: "{% url 'reclama_datos' %}",
+                      type: 'get',                        
+                      success: function(datos) {
+                        Visualiza_datos (datos);  
+                      },
+                      failure: function(datos) { 
+                        alert('esto no vá');
+                      }
+                    });
+
+
+                    function Visualiza_datos (datos) {
+                        bares=[];
+                        bares=datos['Bares_list'];
+                        visitas=[];
+                        visitas=datos['Visit_list'];
+                      $('#container').highcharts({
+
+                        chart: {
+                          type: 'bar'
+                        },
+                        title: {
+                          text: 'Visitas a bares'
+                        },
+                        xAxis: {
+                          categories: bares
+                        },
+                        yAxis: {
+                          title: {
+                          text: 'Número de visitas'
+                        }
+                      },
+                      series: [{
+                        name: 'Visitas',
+                        data: visitas
+                      }],
+                    });
+                   };
+                  });
+            </script> 
+		</div>
+		<button onclick="window.location.href='/rango/'">Volver a index</button>
+	</head>
+</html>
